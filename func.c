@@ -9,95 +9,53 @@ int cmpstr(char* str1, char* str2) {
   return 1;
 }
 
-int checkParen(char c) {
-  char list[] = "()[]{}";
-
-  for (int i = 0; list[i] != 0; i++) {
-    if (c == list[i])
-      return 1;
-  }
-
-  return 0;
-}
-
-int checkEtc(char c) {
-  char list[] = "+-*/%&|,.=!<>;:";
-
-  for (int i = 0; list[i] != 0; i++) {
-    if (c == list[i])
-      return 1;
-  }
-
-  return 0;
-}
-
-int checkStr(char c) {
-  char list[] = "\"\'";
-
-  for (int i = 0; list[i] != 0; i++) {
-    if (c == list[i])
-      return 1;
-  }
-
-  return 0;
-}
-
-int checkInt(char c) {
-  char list[] = "0123456789";
-
-  for (int i = 0; list[i] != 0; i++) {
-    if (c == list[i])
-      return 1;
-  }
-
-  return 0;
-}
-
-int checkDivider(char c) {
-  char list[] = " \n";
-
-  for (int i = 0; list[i] != 0; i++) {
-    if (c == list[i])
-      return 1;
-  }
-
-  return 0;
-}
-
-int checkIdent(char c) {
-  if (checkParen(c) || checkEtc(c) || checkStr(c) || checkInt(c) || checkDivider(c))
-    return 0;
-  else
+int isalpha(char c) {
+  if ((c > 64 && c < 91) || (c > 96 && c < 123))
     return 1;
+  else
+    return 0;
 }
 
-int checkIndent(char* str, int index) {
+int isdigit(char c) {
+  if (c > 47 && c < 58)
+    return 1;
+  else
+    return 0;
+}
+
+int ispunct(char c) {
+  if ((c > 32 && c < 48) || (c > 57 && c < 65) || (c > 90 && c < 97) || (c > 122 && c < 127))
+    return 1;
+  else
+    return 0;
+}
+
+int isparen(char c) {
+  char list[7] = "(){}[]";
+
+  for (int i = 0; list[i] != 0; i++) {
+    if (c == list[i])
+      return 1;
+  }
+
+  return 0;
+}
+
+int isindent(char* str, int index) {
   for (int i = 0; i < INDENT_SIZE; i++) {
-    if (str[index + i] != ' ')
+    if (str[index + i] != ' ') {
       return 0;
+    }
   }
 
   return 1;
 }
 
-int checkKeyword0(char* str) {
-  char list[20][20] = {
-    {"char"}, {"short"}, {"int"}, {"long"}, {"unsigned"}, {"struct"}, {"extern"}, {"static"}, {"const"}, {"double"}, {"float"}, {"enum"}, {"inline"}, {"signed"}, {"sizeof"}, {"typedef"}, {"union"}, {"void"}, {"volatile"}, {'\0'}
-  };
-  
-  for (int i = 0; list[i][0] != 0; i++) {
-    if (cmpstr(str, list[i]))
-      return 1;
-  }
-
-  return 0;
-}
-
-int checkKeyword1(char* str) {
+int checkKeyword(char* str) {
   char list[12][20] = {
     {"break"}, {"case"}, {"continue"}, {"do"}, {"else"}, {"for"}, {"goto"}, {"if"}, {"return"}, {"switch"}, {"while"}, {'\0'}
   };
-  
+
   for (int i = 0; list[i][0] != 0; i++) {
     if (cmpstr(str, list[i]))
       return 1;
@@ -105,17 +63,6 @@ int checkKeyword1(char* str) {
 
   if (str[0] == '#')
     return 1;
-
-  return 0;
-}
-
-int checkEscape(char c) {
-  char list[] = "nrtbf";
-  
-  for (int i = 0; list[i] != 0; i++) {
-    if (c == list[i])
-      return 1;
-  }
 
   return 0;
 }
