@@ -245,7 +245,7 @@ END
       fprintf(file, "<span className=\"code-gray\">{\"%s\"}</span>", parsed[i]);
 
     else if (tag[i] == ESCAPE)
-      fprintf(file, "<span className=\"code-lightyellow\">{\"%s\"}</span>", parsed[i]);
+      fprintf(file, "<span className=\"code-yellow\">{\"%s\"}</span>", parsed[i]);
   }
 
   fprintf(file, "\n</div>");
