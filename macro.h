@@ -1,7 +1,7 @@
 #pragma once
 
-#define MAX 0x1fff
-#define INDENT_SIZE 2
+#define MAX 0x6fff
+#define INDENT_SIZE 4
 
 #define ZERO 0
 #define IDENT 1
